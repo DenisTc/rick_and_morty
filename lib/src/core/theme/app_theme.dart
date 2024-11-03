@@ -27,7 +27,7 @@ final class AppTheme {
       fontSize: 14,
       fontWeight: FontWeight.w500,
       height: 1.4,
-      color: nero,
+      color: grey,
     ),
     labelLarge: TextStyle(
       fontFamily: 'Lato',

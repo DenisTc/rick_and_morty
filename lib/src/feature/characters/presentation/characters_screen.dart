@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rick_and_morty/src/core/theme/app_theme.dart';
 import 'package:rick_and_morty/src/feature/characters/presentation/widgets/character_card.dart';
 
 class CharactersScreen extends StatefulWidget {
