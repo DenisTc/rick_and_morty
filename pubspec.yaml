@@ -41,6 +41,7 @@ flutter:
 
   assets:
     - assets/fonts/
+    - assets/icons/info.webp
     - assets/icons/character_species/alien.webp
     - assets/icons/character_species/human.webp
     - assets/icons/character_gender/female.webp

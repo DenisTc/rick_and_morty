@@ -1,0 +1,1 @@
+enum SpeciesEnum { human, alien }

@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:rick_and_morty/src/core/enums/character_characteristic_enum.dart';
 import 'package:rick_and_morty/src/core/localization/generated/l10n.dart';
+import 'package:rick_and_morty/src/core/utils/get_icon_for_characteristic.dart';
 import 'package:rick_and_morty/src/feature/character_details/presentation/widgets/custom_back_button.dart';
 import 'package:rick_and_morty/src/feature/character_details/presentation/widgets/character_description.dart';
 import 'package:rick_and_morty/src/feature/characters/data/models/character.dart';
@@ -19,23 +21,35 @@ class CharacterDetailsScreen extends StatelessWidget {
           const SizedBox(height: 20),
           CharacterDescription(
             title: S.of(context).name,
-            name: character.name,
-            icon: Icons.abc_outlined,
+            value: character.name,
+            icon: getIconForCharacteristic(
+              typeEnum: CharCharacteristicEnum.gender,
+              value: character.name,
+            ).image(color: Colors.white),
           ),
           CharacterDescription(
             title: S.of(context).status,
-            name: character.status,
-            icon: Icons.abc_outlined,
+            value: character.status,
+            icon: getIconForCharacteristic(
+              typeEnum: CharCharacteristicEnum.status,
+              value: character.status,
+            ).image(color: Colors.white),
           ),
           CharacterDescription(
             title: S.of(context).species,
-            name: character.species,
-            icon: Icons.abc_outlined,
+            value: character.species,
+            icon: getIconForCharacteristic(
+              typeEnum: CharCharacteristicEnum.species,
+              value: character.species,
+            ).image(color: Colors.white),
           ),
           CharacterDescription(
             title: S.of(context).gender,
-            name: character.gender,
-            icon: Icons.abc_outlined,
+            value: character.gender,
+            icon: getIconForCharacteristic(
+              typeEnum: CharCharacteristicEnum.gender,
+              value: character.gender,
+            ).image(color: Colors.white),
           ),
         ],
       ),

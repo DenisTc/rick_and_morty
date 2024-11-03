@@ -23,6 +23,12 @@ class $AssetsIconsGen {
   /// Directory path: assets/icons/character_status
   $AssetsIconsCharacterStatusGen get characterStatus =>
       const $AssetsIconsCharacterStatusGen();
+
+  /// File path: assets/icons/info.webp
+  AssetGenImage get info => const AssetGenImage('assets/icons/info.webp');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [info];
 }
 
 class $AssetsIconsCharacterGenderGen {
