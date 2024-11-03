@@ -16,6 +16,10 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
+  flutter_gen_runner: ^5.8.0
+
+flutter_gen:
+  output: lib/src/core/icons/gen/
 
 flutter_intl:
   enabled: true
@@ -27,6 +31,14 @@ flutter:
 
   assets:
     - assets/fonts/
+    - assets/icons/character_species/alien.webp
+    - assets/icons/character_species/human.webp
+    - assets/icons/character_gender/female.webp
+    - assets/icons/character_gender/male.webp
+    - assets/icons/character_gender/unknown.webp
+    - assets/icons/character_status/alive.webp
+    - assets/icons/character_status/dead.webp
+    - assets/icons/character_status/unknown.webp
 
   fonts:
     - family: Aeonik

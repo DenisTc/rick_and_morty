@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rick_and_morty/src/core/icons/gen/assets.gen.dart';
 import 'package:rick_and_morty/src/core/theme/app_theme.dart';
 
 class CharacterDescription extends StatelessWidget {
@@ -23,10 +24,8 @@ class CharacterDescription extends StatelessWidget {
           CircleAvatar(
             radius: 20.0,
             backgroundColor: AppTheme.irisBlue,
-            child: Icon(
-              icon,
+            child: Assets.icons.characterSpecies.alien.image(
               color: Colors.white,
-              size: 24.0,
             ),
           ),
           const SizedBox(width: 20),
