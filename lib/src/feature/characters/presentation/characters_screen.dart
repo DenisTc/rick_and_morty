@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:rick_and_morty/src/feature/characters/presentation/widgets/character_card.dart';
+import 'package:rick_and_morty/src/feature/characters/presentation/widgets/error_state.dart';
+import 'package:rick_and_morty/src/feature/characters/store/characters_store.dart';
 
 class CharactersScreen extends StatefulWidget {
   const CharactersScreen({
@@ -11,22 +15,70 @@ class CharactersScreen extends StatefulWidget {
 }
 
 class _CharactersScreenState extends State<CharactersScreen> {
-  final items = ['1', '2', '3', '4', '5'];
+  final CharactersStore store = CharactersStore();
+  final RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
+  @override
+  void initState() {
+    super.initState();
+    store.fetchCharacters();
+  }
+
+  @override
+  void dispose() {
+    _refreshController.dispose();
+    super.dispose();
+  }
+
+  void _onLoading() async {
+    store.fetchCharacters(isNextPage: true);
+    await Future.delayed(const Duration(milliseconds: 1000));
+
+    if (store.hasNextPage) {
+      _refreshController.loadComplete();
+    } else {
+      _refreshController.loadNoData();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: .74,
-            mainAxisSpacing: 10.0,
-            crossAxisSpacing: 20.0,
-          ),
-          padding: const EdgeInsets.all(20.0),
-          itemCount: items.length,
-          itemBuilder: (context, index) {
-            return const CharacterCard();
+        bottom: false,
+        child: Observer(
+          builder: (_) {
+            if (store.isLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (!store.hasNextPage) {
+              _refreshController.loadNoData();
+            }
+
+            if (store.errorMessage != null) {
+              return ErrorState(store: store);
+            }
+
+            return SmartRefresher(
+              enablePullDown: true,
+              enablePullUp: true,
+              controller: _refreshController,
+              onLoading: _onLoading,
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: .74,
+                  mainAxisSpacing: 10.0,
+                  crossAxisSpacing: 20.0,
+                ),
+                padding: const EdgeInsets.all(20.0),
+                itemCount: store.characters.length,
+                itemBuilder: (context, index) {
+                  return CharacterCard(character: store.characters[index]);
+                },
+              ),
+            );
           },
         ),
       ),

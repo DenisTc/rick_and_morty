@@ -12,9 +12,36 @@ import 'package:flutter/widgets.dart';
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// Directory path: assets/icons/character_gender
+  $AssetsIconsCharacterGenderGen get characterGender =>
+      const $AssetsIconsCharacterGenderGen();
+
   /// Directory path: assets/icons/character_species
   $AssetsIconsCharacterSpeciesGen get characterSpecies =>
       const $AssetsIconsCharacterSpeciesGen();
+
+  /// Directory path: assets/icons/character_status
+  $AssetsIconsCharacterStatusGen get characterStatus =>
+      const $AssetsIconsCharacterStatusGen();
+}
+
+class $AssetsIconsCharacterGenderGen {
+  const $AssetsIconsCharacterGenderGen();
+
+  /// File path: assets/icons/character_gender/female.webp
+  AssetGenImage get female =>
+      const AssetGenImage('assets/icons/character_gender/female.webp');
+
+  /// File path: assets/icons/character_gender/male.webp
+  AssetGenImage get male =>
+      const AssetGenImage('assets/icons/character_gender/male.webp');
+
+  /// File path: assets/icons/character_gender/unknown.webp
+  AssetGenImage get unknown =>
+      const AssetGenImage('assets/icons/character_gender/unknown.webp');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [female, male, unknown];
 }
 
 class $AssetsIconsCharacterSpeciesGen {
@@ -30,6 +57,25 @@ class $AssetsIconsCharacterSpeciesGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [alien, human];
+}
+
+class $AssetsIconsCharacterStatusGen {
+  const $AssetsIconsCharacterStatusGen();
+
+  /// File path: assets/icons/character_status/alive.webp
+  AssetGenImage get alive =>
+      const AssetGenImage('assets/icons/character_status/alive.webp');
+
+  /// File path: assets/icons/character_status/dead.webp
+  AssetGenImage get dead =>
+      const AssetGenImage('assets/icons/character_status/dead.webp');
+
+  /// File path: assets/icons/character_status/unknown.webp
+  AssetGenImage get unknown =>
+      const AssetGenImage('assets/icons/character_status/unknown.webp');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [alive, dead, unknown];
 }
 
 class Assets {

@@ -11,12 +11,21 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  
+  mobx: ^2.4.0
+  flutter_mobx: ^2.2.1+1
+  http: ^1.2.2
+  cached_network_image: ^3.4.1
+  pull_to_refresh: ^2.0.0
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
+  build_runner: ^2.4.13
   flutter_gen_runner: ^5.8.0
+  mobx_codegen: ^2.6.2
 
 flutter_gen:
   output: lib/src/core/icons/gen/

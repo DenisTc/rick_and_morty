@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
 class TitleCard extends StatelessWidget {
-  const TitleCard({
-    super.key,
-  });
+  final String title;
+  const TitleCard(this.title, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +12,7 @@ class TitleCard extends StatelessWidget {
         vertical: 5,
       ),
       child: Text(
-        'Rick Sanchez Rick Sanchez Rick Sanchez Rick Sanchez',
+        title,
         style: Theme.of(context).textTheme.bodyLarge,
         maxLines: 2,
         overflow: TextOverflow.ellipsis,

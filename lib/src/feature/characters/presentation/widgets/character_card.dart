@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty/src/feature/character_details/presentation/character_details_screen.dart';
+import 'package:rick_and_morty/src/feature/characters/data/models/character.dart';
 import 'package:rick_and_morty/src/feature/characters/presentation/widgets/favorite_button.dart';
 import 'package:rick_and_morty/src/feature/characters/presentation/widgets/image_card.dart';
 import 'package:rick_and_morty/src/feature/characters/presentation/widgets/title_card.dart';
 
 class CharacterCard extends StatelessWidget {
+  final Character character;
+
   const CharacterCard({
     super.key,
+    required this.character,
   });
 
   @override
@@ -17,23 +21,23 @@ class CharacterCard extends StatelessWidget {
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => const CharacterDetailsScreen(),
+              builder: (context) => CharacterDetailsScreen(character),
             ),
           );
         },
-        child: const ColoredBox(
+        child: ColoredBox(
           color: Colors.white,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Stack(
                 children: [
-                  ImageCard(),
+                  ImageCard(character.image),
                   FavoriteButton(),
                 ],
               ),
-              SizedBox(height: 5),
-              TitleCard(),
+              const SizedBox(height: 5),
+              TitleCard(character.name),
             ],
           ),
         ),

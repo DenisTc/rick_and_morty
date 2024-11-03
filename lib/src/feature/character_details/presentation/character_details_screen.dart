@@ -1,10 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty/src/core/localization/generated/l10n.dart';
 import 'package:rick_and_morty/src/feature/character_details/presentation/widgets/custom_back_button.dart';
 import 'package:rick_and_morty/src/feature/character_details/presentation/widgets/character_description.dart';
+import 'package:rick_and_morty/src/feature/characters/data/models/character.dart';
 
 class CharacterDetailsScreen extends StatelessWidget {
-  const CharacterDetailsScreen({super.key});
+  final Character character;
+  const CharacterDetailsScreen(this.character, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,26 +15,26 @@ class CharacterDetailsScreen extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const CharacterImage(),
+          CharacterImage(character.image),
           const SizedBox(height: 20),
           CharacterDescription(
             title: S.of(context).name,
-            name: 'Betch Smith',
+            name: character.name,
             icon: Icons.abc_outlined,
           ),
           CharacterDescription(
             title: S.of(context).status,
-            name: 'Alive',
+            name: character.status,
             icon: Icons.abc_outlined,
           ),
           CharacterDescription(
             title: S.of(context).species,
-            name: 'Human',
+            name: character.species,
             icon: Icons.abc_outlined,
           ),
           CharacterDescription(
             title: S.of(context).gender,
-            name: 'Male',
+            name: character.gender,
             icon: Icons.abc_outlined,
           ),
         ],
@@ -41,19 +44,30 @@ class CharacterDetailsScreen extends StatelessWidget {
 }
 
 class CharacterImage extends StatelessWidget {
-  const CharacterImage({
-    super.key,
-  });
+  final String image;
+  const CharacterImage(this.image, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Stack(
+    return Stack(
       children: [
         AspectRatio(
           aspectRatio: 1.46,
-          child: ColoredBox(color: Colors.grey),
+          child: Hero(
+            tag: image,
+            child: ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+              child: CachedNetworkImage(
+                imageUrl: image,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
         ),
-        CustomBackButton(),
+        const CustomBackButton(),
       ],
     );
   }
