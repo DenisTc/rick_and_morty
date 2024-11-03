@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 class Character {
@@ -8,6 +7,7 @@ class Character {
   String species;
   String gender;
   String image;
+  bool isFavorite;
 
   Character({
     required this.id,
@@ -16,6 +16,7 @@ class Character {
     required this.species,
     required this.gender,
     required this.image,
+    this.isFavorite = false,
   });
 
   Map<String, dynamic> toMap() {
@@ -26,10 +27,14 @@ class Character {
       'species': species,
       'gender': gender,
       'image': image,
+      'isFavorite': isFavorite,
     };
   }
 
-  factory Character.fromMap(Map<String, dynamic> map) {
+  factory Character.fromMap(
+    Map<String, dynamic> map, {
+    bool isFavorite = false,
+  }) {
     return Character(
       id: map['id'] as int,
       name: map['name'] as String,
@@ -37,6 +42,7 @@ class Character {
       species: map['species'] as String,
       gender: map['gender'] as String,
       image: map['image'] as String,
+      isFavorite: isFavorite,
     );
   }
 

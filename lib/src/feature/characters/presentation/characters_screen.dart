@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:rick_and_morty/src/feature/characters/presentation/widgets/character_card.dart';
 import 'package:rick_and_morty/src/feature/characters/presentation/widgets/error_state.dart';
@@ -15,13 +16,15 @@ class CharactersScreen extends StatefulWidget {
 }
 
 class _CharactersScreenState extends State<CharactersScreen> {
-  final CharactersStore store = CharactersStore();
+  late final CharactersStore store;
+
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
   @override
   void initState() {
     super.initState();
+    store = context.read<CharactersStore>();
     store.fetchCharacters();
   }
 

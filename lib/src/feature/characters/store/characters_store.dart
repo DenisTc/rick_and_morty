@@ -1,5 +1,6 @@
 import 'package:mobx/mobx.dart';
 import 'package:http/http.dart' as http;
+import 'package:rick_and_morty/src/core/services/local_storage.dart';
 import 'dart:convert';
 
 import 'package:rick_and_morty/src/feature/characters/data/models/character.dart';
@@ -9,8 +10,15 @@ part 'characters_store.g.dart';
 class CharactersStore = CharactersBase with _$CharactersStore;
 
 abstract class CharactersBase with Store {
+  CharactersBase() {
+    _loadLikedCharacters();
+  }
+
   @observable
   ObservableList<Character> characters = ObservableList<Character>();
+
+  @observable
+  ObservableSet<int> favoriteCharacterIds = ObservableSet<int>();
 
   @observable
   bool isLoading = false;
@@ -52,10 +60,13 @@ abstract class CharactersBase with Store {
           currentPage = page;
         }
 
-        final newCharacters = results
-            .map((characterData) =>
-                Character.fromMap(characterData as Map<String, dynamic>))
-            .toList();
+        final newCharacters = results.map((characterData) {
+          final characterId = characterData['id'] as int;
+          return Character.fromMap(
+            characterData as Map<String, dynamic>,
+            isFavorite: favoriteCharacterIds.contains(characterId),
+          );
+        }).toList();
 
         characters.addAll(newCharacters);
       } else {
@@ -65,5 +76,33 @@ abstract class CharactersBase with Store {
       errorMessage = 'An error occurred: $e';
     }
     isLoading = false;
+  }
+
+  @action
+  Future<void> toggleLike(int characterId) async {
+    if (favoriteCharacterIds.contains(characterId)) {
+      favoriteCharacterIds.remove(characterId);
+    } else {
+      favoriteCharacterIds.add(characterId);
+    }
+
+    await _saveLikedCharacters();
+
+    characters = ObservableList.of(characters.map((character) {
+      if (character.id == characterId) {
+        character.isFavorite = favoriteCharacterIds.contains(characterId);
+      }
+      return character;
+    }));
+  }
+
+  Future<void> _loadLikedCharacters() async {
+    final favoriteIds = LocalStorage().getFavoriteCharactersId();
+    favoriteCharacterIds.addAll(favoriteIds.map(int.parse));
+  }
+
+  Future<void> _saveLikedCharacters() async {
+    final ids = favoriteCharacterIds.map((id) => id.toString()).toList();
+    await LocalStorage().saveFavoriteCharactersId(ids);
   }
 }

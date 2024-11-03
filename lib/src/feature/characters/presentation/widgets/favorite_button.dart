@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty/src/core/theme/app_theme.dart';
 
-class FavoriteButton extends StatefulWidget {
+class FavoriteButton extends StatelessWidget {
+  final bool isFavorite;
+  final VoidCallback onTap;
+
   const FavoriteButton({
     super.key,
+    required this.onTap,
+    required this.isFavorite,
   });
-
-  @override
-  State<FavoriteButton> createState() => _FavoriteButtonState();
-}
-
-class _FavoriteButtonState extends State<FavoriteButton> {
-  bool isFavorite = false;
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +23,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
             backgroundColor: Colors.white,
             elevation: 1,
             minimumSize: const Size(40, 40)),
-        onPressed: () {
-          setState(() {
-            isFavorite = !isFavorite;
-          });
-        },
+        onPressed: () => onTap(),
         child: AnimatedSwitcher(
           duration: const Duration(milliseconds: 300),
           transitionBuilder: (Widget child, Animation<double> animation) {
