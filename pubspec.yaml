@@ -9,11 +9,18 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
+
+flutter_intl:
+  enabled: true
+  arb_dir: lib/src/core/localization/l10n
+  output_dir: lib/src/core/localization/generated
 
 flutter:
   uses-material-design: true
@@ -21,29 +28,29 @@ flutter:
   assets:
     - assets/fonts/
 
-fonts:
-  - family: Aeonik
-    fonts:
-      - asset: assets/fonts/lato/Lato-Regular.ttf
-      - asset: assets/fonts/lato/Lato-Bold.ttf
-        weight: 700
-      - asset: assets/fonts/lato/Lato-Italic.ttf
-        style: italic
-      - asset: assets/fonts/lato/Lato-BoldItalic.ttf
-        weight: 700
-        style: italic
-      - asset: assets/fonts/lato/Lato-Black.ttf
-        weight: 900
-      - asset: assets/fonts/lato/Lato-BlackItalic.ttf
-        weight: 900
-        style: italic
-      - asset: assets/fonts/lato/Lato-Light.ttf
-        weight: 300
-      - asset: assets/fonts/lato/Lato-LightItalic.ttf
-        weight: 300
-        style: italic
-      - asset: assets/fonts/lato/Lato-Thin.ttf
-        weight: 100
-      - asset: assets/fonts/lato/Lato-ThinItalic.ttf
-        weight: 100
-        style: italic
+  fonts:
+    - family: Aeonik
+      fonts:
+        - asset: assets/fonts/lato/Lato-Regular.ttf
+        - asset: assets/fonts/lato/Lato-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/lato/Lato-Italic.ttf
+          style: italic
+        - asset: assets/fonts/lato/Lato-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/lato/Lato-Black.ttf
+          weight: 900
+        - asset: assets/fonts/lato/Lato-BlackItalic.ttf
+          weight: 900
+          style: italic
+        - asset: assets/fonts/lato/Lato-Light.ttf
+          weight: 300
+        - asset: assets/fonts/lato/Lato-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/lato/Lato-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/lato/Lato-ThinItalic.ttf
+          weight: 100
+          style: italic

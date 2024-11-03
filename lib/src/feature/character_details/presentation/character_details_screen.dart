@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rick_and_morty/src/core/localization/generated/l10n.dart';
 import 'package:rick_and_morty/src/feature/character_details/presentation/widgets/custom_back_button.dart';
 import 'package:rick_and_morty/src/feature/character_details/presentation/widgets/character_description.dart';
 
@@ -7,29 +8,29 @@ class CharacterDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CharacterImage(),
-          SizedBox(height: 20),
+          const CharacterImage(),
+          const SizedBox(height: 20),
           CharacterDescription(
-            title: 'Name',
+            title: S.of(context).name,
             name: 'Betch Smith',
             icon: Icons.abc_outlined,
           ),
           CharacterDescription(
-            title: 'Status',
+            title: S.of(context).status,
             name: 'Alive',
             icon: Icons.abc_outlined,
           ),
           CharacterDescription(
-            title: 'Species',
+            title: S.of(context).species,
             name: 'Human',
             icon: Icons.abc_outlined,
           ),
           CharacterDescription(
-            title: 'Gender',
+            title: S.of(context).gender,
             name: 'Male',
             icon: Icons.abc_outlined,
           ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:rick_and_morty/src/core/localization/generated/l10n.dart';
 import 'package:rick_and_morty/src/core/theme/app_theme.dart';
 import 'package:rick_and_morty/src/feature/characters/presentation/characters_screen.dart';
 
@@ -14,6 +16,13 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.themeData,
+      localizationsDelegates: const [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
       home: const CharactersScreen(),
     );
   }
