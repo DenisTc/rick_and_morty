@@ -1,7 +1,7 @@
-import 'package:rick_and_morty/src/feature/characters/domain/repository/character_repository.dart';
+import 'package:rick_and_morty/src/feature/characters/domain/repository/characters_repository.dart';
 
 class GetFavoriteCharacterIdsUseCase {
-  final CharacterRepository _characterRepository;
+  final CharactersRepository _characterRepository;
 
   GetFavoriteCharacterIdsUseCase(this._characterRepository);
 

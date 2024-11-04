@@ -1,14 +1,14 @@
 import 'package:rick_and_morty/src/core/network/network_client.dart';
 import 'package:rick_and_morty/src/feature/characters/data/models/character_response.dart';
 
-abstract interface class CharacterRemotelDataSource {
+abstract interface class CharactersRemotelDataSource {
   Future<CharacterResponse> getCharacters(int page);
 }
 
-class CharacterRemotelDataSourceImpl implements CharacterRemotelDataSource {
+class CharactersRemotelDataSourceImpl implements CharactersRemotelDataSource {
   final NetworkClient api;
 
-  CharacterRemotelDataSourceImpl(this.api);
+  CharactersRemotelDataSourceImpl(this.api);
 
   @override
   Future<CharacterResponse> getCharacters(int page) async {

@@ -1,8 +1,8 @@
 import 'package:rick_and_morty/src/feature/characters/data/models/character_response.dart';
-import 'package:rick_and_morty/src/feature/characters/domain/repository/character_repository.dart';
+import 'package:rick_and_morty/src/feature/characters/domain/repository/characters_repository.dart';
 
 class GetCharactesUseCase {
-  final CharacterRepository _characterRepository;
+  final CharactersRepository _characterRepository;
 
   GetCharactesUseCase(this._characterRepository);
 

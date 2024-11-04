@@ -1,14 +1,14 @@
 import 'package:rick_and_morty/src/core/services/local_storage.dart';
 
-abstract interface class CharacterLocalDataSource {
+abstract interface class CharactersLocalDataSource {
   Future<void> saveFavoriteCharacterIds(List<String> ids);
   Future<List<String>> getFavoriteCharacterIds();
 }
 
-class CharacterLocalDataSourceImpl implements CharacterLocalDataSource {
+class CharactersLocalDataSourceImpl implements CharactersLocalDataSource {
   final LocalStorage api;
 
-  CharacterLocalDataSourceImpl(this.api);
+  CharactersLocalDataSourceImpl(this.api);
 
   @override
   Future<List<String>> getFavoriteCharacterIds() async {
