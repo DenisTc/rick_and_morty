@@ -1,17 +1,27 @@
 import 'package:mobx/mobx.dart';
-import 'package:http/http.dart' as http;
-import 'package:rick_and_morty/src/core/services/local_storage.dart';
-import 'dart:convert';
 
 import 'package:rick_and_morty/src/feature/characters/data/models/character.dart';
+import 'package:rick_and_morty/src/feature/characters/domain/usecases/get_characters.dart';
+import 'package:rick_and_morty/src/feature/characters/domain/usecases/get_favorite_character_ids.dart';
+import 'package:rick_and_morty/src/feature/characters/domain/usecases/save_favorite_character_ids.dart';
 
 part 'characters_store.g.dart';
 
 class CharactersStore = CharactersBase with _$CharactersStore;
 
 abstract class CharactersBase with Store {
-  CharactersBase() {
-    _loadLikedCharacters();
+  final GetCharactesUseCase _getCharactes;
+  final GetFavoriteCharacterIdsUseCase _getFavoriteCharacterIds;
+  final SaveFavoriteCharacterIdsUseCase _saveFavoriteCharacterIds;
+
+  CharactersBase({
+    required GetCharactesUseCase getCharactes,
+    required GetFavoriteCharacterIdsUseCase getFavoriteCharacterIds,
+    required SaveFavoriteCharacterIdsUseCase saveFavoriteCharacterIds,
+  })  : _getCharactes = getCharactes,
+        _getFavoriteCharacterIds = getFavoriteCharacterIds,
+        _saveFavoriteCharacterIds = saveFavoriteCharacterIds {
+    _loadFavoriteCharacters();
   }
 
   @observable
@@ -44,34 +54,22 @@ abstract class CharactersBase with Store {
     }
 
     try {
-      final response = await http.get(
-        Uri.parse('https://rickandmortyapi.com/api/character?page=$page'),
-      );
+      final response = await _getCharactes(page);
+      final results = response.results;
 
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
+      hasNextPage = response.info.next != null;
 
-        final info = data['info'] as Map<String, dynamic>;
-        final results = data['results'] as List;
-
-        hasNextPage = info['next'] != null;
-
-        if (isNextPage) {
-          currentPage = page;
-        }
-
-        final newCharacters = results.map((characterData) {
-          final characterId = characterData['id'] as int;
-          return Character.fromMap(
-            characterData as Map<String, dynamic>,
-            isFavorite: favoriteCharacterIds.contains(characterId),
-          );
-        }).toList();
-
-        characters.addAll(newCharacters);
-      } else {
-        errorMessage = 'Failed to load characters';
+      if (isNextPage) {
+        currentPage = page;
       }
+
+      final newCharacters = results.map((characterData) {
+        return characterData.copyWith(
+          isFavorite: favoriteCharacterIds.contains(characterData.id),
+        );
+      }).toList();
+
+      characters.addAll(newCharacters);
     } catch (e) {
       errorMessage = 'An error occurred: $e';
     }
@@ -86,7 +84,7 @@ abstract class CharactersBase with Store {
       favoriteCharacterIds.add(characterId);
     }
 
-    await _saveLikedCharacters();
+    await _saveFavoriteCharacters();
 
     characters = ObservableList.of(characters.map((character) {
       if (character.id == characterId) {
@@ -96,13 +94,13 @@ abstract class CharactersBase with Store {
     }));
   }
 
-  Future<void> _loadLikedCharacters() async {
-    final favoriteIds = LocalStorage().getFavoriteCharactersId();
+  Future<void> _loadFavoriteCharacters() async {
+    final favoriteIds = await _getFavoriteCharacterIds();
     favoriteCharacterIds.addAll(favoriteIds.map(int.parse));
   }
 
-  Future<void> _saveLikedCharacters() async {
+  Future<void> _saveFavoriteCharacters() async {
     final ids = favoriteCharacterIds.map((id) => id.toString()).toList();
-    await LocalStorage().saveFavoriteCharactersId(ids);
+    await _saveFavoriteCharacterIds(ids);
   }
 }

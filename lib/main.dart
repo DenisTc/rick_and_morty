@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:rick_and_morty/src/core/localization/generated/l10n.dart';
+import 'package:rick_and_morty/src/core/services/injection_container.dart';
 import 'package:rick_and_morty/src/core/services/local_storage.dart';
 import 'package:rick_and_morty/src/core/theme/app_theme.dart';
 import 'package:rick_and_morty/src/feature/characters/presentation/characters_screen.dart';
@@ -10,6 +11,7 @@ import 'package:rick_and_morty/src/feature/characters/store/characters_store.dar
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  initSl();
   await LocalStorage().init();
 
   runApp(const App());
@@ -22,7 +24,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<CharactersStore>(create: (_) => CharactersStore()),
+        Provider<CharactersStore>(create: (_) => sl<CharactersStore>()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
