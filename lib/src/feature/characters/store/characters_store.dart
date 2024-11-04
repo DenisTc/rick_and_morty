@@ -10,12 +10,12 @@ part 'characters_store.g.dart';
 class CharactersStore = CharactersBase with _$CharactersStore;
 
 abstract class CharactersBase with Store {
-  final GetCharactesUseCase _getCharactes;
+  final GetCharactersUseCase _getCharactes;
   final GetFavoriteCharacterIdsUseCase _getFavoriteCharacterIds;
   final SaveFavoriteCharacterIdsUseCase _saveFavoriteCharacterIds;
 
   CharactersBase({
-    required GetCharactesUseCase getCharactes,
+    required GetCharactersUseCase getCharactes,
     required GetFavoriteCharacterIdsUseCase getFavoriteCharacterIds,
     required SaveFavoriteCharacterIdsUseCase saveFavoriteCharacterIds,
   })  : _getCharactes = getCharactes,
@@ -72,8 +72,9 @@ abstract class CharactersBase with Store {
       characters.addAll(newCharacters);
     } catch (e) {
       errorMessage = 'An error occurred: $e';
+    } finally {
+      isLoading = false;
     }
-    isLoading = false;
   }
 
   @action

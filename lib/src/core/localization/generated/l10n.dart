@@ -99,6 +99,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Something went wrong. Please try again later`
+  String get errorMessage {
+    return Intl.message(
+      'Something went wrong. Please try again later',
+      name: 'errorMessage',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

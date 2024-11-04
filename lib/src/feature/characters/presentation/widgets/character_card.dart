@@ -36,7 +36,7 @@ class _CharacterCardState extends State<CharacterCard> {
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => CharacterDetailsScreen(widget.character),
+              builder: (context) => CharacterDetailsScreen(widget.character.id),
             ),
           );
         },

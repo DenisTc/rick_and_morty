@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:rick_and_morty/src/core/localization/generated/l10n.dart';
+import 'package:rick_and_morty/src/core/widgets/error_placeholder.dart';
 import 'package:rick_and_morty/src/feature/characters/presentation/widgets/character_card.dart';
-import 'package:rick_and_morty/src/feature/characters/presentation/widgets/error_state.dart';
 import 'package:rick_and_morty/src/feature/characters/store/characters_store.dart';
 
 class CharactersScreen extends StatefulWidget {
@@ -60,7 +61,10 @@ class _CharactersScreenState extends State<CharactersScreen> {
             }
 
             if (store.errorMessage != null) {
-              return ErrorState(store: store);
+              return ErrorPlaceHolder(
+                errorMessage: store.errorMessage ?? S.of(context).errorMessage,
+                onTap: () => store.fetchCharacters(),
+              );
             }
 
             return SmartRefresher(

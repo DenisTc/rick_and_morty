@@ -3,5 +3,6 @@
   "status": "Status",
   "species": "Species",
   "gender": "Gender",
-  "reload": "Reload"
+  "reload": "Reload",
+  "errorMessage": "Something went wrong. Please try again later"
 }

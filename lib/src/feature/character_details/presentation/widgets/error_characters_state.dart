@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:rick_and_morty/src/core/localization/generated/l10n.dart';
 import 'package:rick_and_morty/src/feature/characters/store/characters_store.dart';
 
-class ErrorState extends StatelessWidget {
-  const ErrorState({
+class ErrorCharactersState extends StatelessWidget {
+  const ErrorCharactersState({
     super.key,
     required this.store,
   });

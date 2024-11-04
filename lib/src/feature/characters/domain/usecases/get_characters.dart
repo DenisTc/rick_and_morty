@@ -1,11 +1,11 @@
 import 'package:rick_and_morty/src/feature/characters/data/models/character_response.dart';
 import 'package:rick_and_morty/src/feature/characters/domain/repository/characters_repository.dart';
 
-class GetCharactesUseCase {
-  final CharactersRepository _characterRepository;
+class GetCharactersUseCase {
+  final CharactersRepository _charactersRepository;
 
-  GetCharactesUseCase(this._characterRepository);
+  GetCharactersUseCase(this._charactersRepository);
 
   Future<CharacterResponse> call(int page) async =>
-      _characterRepository.getCharacters(page);
+      _charactersRepository.getCharacters(page);
 }
