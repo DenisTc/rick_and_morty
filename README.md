@@ -2,6 +2,19 @@
 
 Проект RickAndMorty — это приложение на Flutter, которое использует **Rick and Morty API** для получения данных о персонажах. Приложение построено с использованием архитектурных принципов и разделения на слои данных, домена и представления.
 
+## Скриншоты
+<table>
+  <tr>
+    <td>Главный экран</td>
+    <td>Экран описания персонажа</td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/3f635f08-8d95-47bd-8acd-c30ea1ed79d6" width=270></td>
+    <td><img src="https://github.com/user-attachments/assets/78419154-17ab-4d52-92a7-f357dde082f1" width=270></td>
+  </tr>
+</table>
+
+
 ## Требования
 
 - **Flutter SDK**: 3.24.4
