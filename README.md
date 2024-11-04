@@ -7,6 +7,8 @@
   </tr>
 </table>
 
+[Download APK](https://drive.google.com/file/d/1V1HRWuRHPZ1AueE4jEisbGLKPJo5WZ2y/view?usp=sharing)
+
 ## Скриншоты
 <table>
   <tr>
