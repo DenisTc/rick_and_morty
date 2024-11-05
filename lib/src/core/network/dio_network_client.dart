@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 import 'package:rick_and_morty/src/core/network/network_client.dart';
 
+@LazySingleton(as: NetworkClient)
 final class DioNetworkClient extends NetworkClient {
   static const String _baseUrl = 'https://rickandmortyapi.com/api';
 

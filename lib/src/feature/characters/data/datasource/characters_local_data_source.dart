@@ -1,10 +1,12 @@
 import 'package:rick_and_morty/src/core/services/local_storage.dart';
+import 'package:injectable/injectable.dart';
 
 abstract interface class CharactersLocalDataSource {
   Future<void> saveFavoriteCharacterIds(List<String> ids);
   Future<List<String>> getFavoriteCharacterIds();
 }
 
+@LazySingleton(as: CharactersLocalDataSource)
 class CharactersLocalDataSourceImpl implements CharactersLocalDataSource {
   final LocalStorage api;
 

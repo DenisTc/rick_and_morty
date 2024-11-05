@@ -2,7 +2,9 @@ import 'package:rick_and_morty/src/feature/characters/data/datasource/characters
 import 'package:rick_and_morty/src/feature/characters/data/datasource/characters_remote_data_source.dart';
 import 'package:rick_and_morty/src/feature/characters/data/models/character_response.dart';
 import 'package:rick_and_morty/src/feature/characters/domain/repository/characters_repository.dart';
+import 'package:injectable/injectable.dart';
 
+@LazySingleton(as: CharactersRepository)
 class CharactersRepoImpl implements CharactersRepository {
   final CharactersRemotelDataSource _remoteDataSource;
   final CharactersLocalDataSource _localDataSource;

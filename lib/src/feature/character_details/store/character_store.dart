@@ -1,9 +1,11 @@
+import 'package:injectable/injectable.dart';
 import 'package:mobx/mobx.dart';
 import 'package:rick_and_morty/src/feature/character_details/domain/usecases/get_character.dart';
 import 'package:rick_and_morty/src/feature/characters/data/models/character.dart';
 
 part 'character_store.g.dart';
 
+@singleton
 class CharacterStore = CharacterBase with _$CharacterStore;
 
 abstract class CharacterBase with Store {
