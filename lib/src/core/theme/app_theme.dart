@@ -9,21 +9,21 @@ final class AppTheme {
 
   static const TextTheme textTheme = TextTheme(
     headlineSmall: TextStyle(
-      fontFamily: 'Lato',
+      fontFamily: 'Aeonik',
       fontSize: 16,
       fontWeight: FontWeight.w700,
       height: 1.4,
       color: nero,
     ),
     bodyLarge: TextStyle(
-      fontFamily: 'Lato',
+      fontFamily: 'Aeonik',
       fontSize: 14,
       fontWeight: FontWeight.w700,
       height: 1.4,
       color: nero,
     ),
     bodyMedium: TextStyle(
-      fontFamily: 'Lato',
+      fontFamily: 'Aeonik',
       fontSize: 14,
       fontWeight: FontWeight.w500,
       height: 1.4,
@@ -37,7 +37,7 @@ final class AppTheme {
       color: nero,
     ),
     labelMedium: TextStyle(
-      fontFamily: 'Lato',
+      fontFamily: 'Aeonik',
       fontSize: 12,
       fontWeight: FontWeight.w500,
       height: 1.4,
@@ -59,7 +59,7 @@ final class AppTheme {
       iconTheme: IconThemeData(color: nero),
       titleTextStyle: TextStyle(
         color: nero,
-        fontFamily: 'Lato',
+        fontFamily: 'Aeonik',
         fontWeight: FontWeight.w700,
         fontSize: 16,
       ),
@@ -68,7 +68,7 @@ final class AppTheme {
       style: ElevatedButton.styleFrom(
         backgroundColor: irisBlue,
         textStyle: const TextStyle(
-          fontFamily: 'Lato',
+          fontFamily: 'Aeonik',
           fontWeight: FontWeight.w700,
         ),
       ),
