@@ -7,7 +7,7 @@
   </tr>
 </table>
 
-[Download APK](https://drive.google.com/file/d/1V1HRWuRHPZ1AueE4jEisbGLKPJo5WZ2y/view?usp=sharing)
+[Download APK](https://drive.google.com/file/d/1aNUovGkUtqCEuVHWYTlbtNoP4aYvbRj0/view?usp=sharing)
 
 ## Скриншоты
 <table>
@@ -29,15 +29,22 @@
 
 ## Запуск проекта
 
+
 1. Убедитесь, что у вас установлен Flutter SDK версии 3.24.4 и Dart SDK версии 3.5.4.
 2. Установите зависимости, выполнив команду:
    ```bash
    flutter pub get
    ```
-3. Запустите проект на эмуляторе или подключенном устройстве:
+3. Сгенерируйте необходимые файлы:
+    ```bash
+   flutter pub run build_runner build --delete-conflicting-outputs
+   ```
+
+4. Запустите проект на эмуляторе или подключенном устройстве:
    ```bash
    flutter run
    ```
+
 ## Используемые плагины
 
 ### State Management
@@ -66,9 +73,10 @@
 lib/
 └── src/
     ├── core/
+    │   ├── di/
     │   ├── enums/
     │   ├── extension/
-    │   ├── icons/gen/
+    │   ├── icons/
     │   ├── localization/
     │   ├── network/
     │   ├── services/
