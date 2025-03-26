@@ -14,7 +14,13 @@ import 'package:rick_and_morty/src/core/extension/string_extension.dart';
 
 class CharacterDetailsScreen extends StatefulWidget {
   final int id;
-  const CharacterDetailsScreen(this.id, {super.key});
+  final String image;
+
+  const CharacterDetailsScreen({
+    super.key,
+    required this.id,
+    required this.image,
+  });
 
   @override
   State<CharacterDetailsScreen> createState() => _CharacterDetailsScreenState();
@@ -36,7 +42,13 @@ class _CharacterDetailsScreenState extends State<CharacterDetailsScreen> {
       body: Observer(
         builder: (_) {
           if (store.isLoading) {
-            return const CharacterDetailShimmer();
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CharacterImage(widget.image),
+                const CharacterDetailShimmer(),
+              ],
+            );
           }
 
           if (store.errorMessage.isNotNullOrEmpty) {
@@ -52,7 +64,7 @@ class _CharacterDetailsScreenState extends State<CharacterDetailsScreen> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CharacterImage(character.image),
+                CharacterImage(widget.image),
                 const SizedBox(height: 20),
                 CharacterDescription(
                   title: S.of(context).name,

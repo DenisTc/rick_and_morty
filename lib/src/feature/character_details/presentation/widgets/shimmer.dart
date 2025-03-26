@@ -6,26 +6,12 @@ class CharacterDetailShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AspectRatio(
-            aspectRatio: 1.46,
-            child: Shimmer.fromColors(
-              baseColor: Colors.grey[300]!,
-              highlightColor: Colors.grey[100]!,
-              child: Container(
-                width: double.infinity,
-                height: 200.0,
-                color: Colors.white,
-              ),
-            ),
-          ),
-          const SizedBox(height: 20.0),
-          ...List.generate(3, (index) => const _ShimmerRow()),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 20.0),
+        ...List.generate(3, (index) => const _ShimmerRow()),
+      ],
     );
   }
 }
