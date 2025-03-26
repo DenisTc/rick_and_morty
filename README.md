@@ -24,13 +24,13 @@
 
 ## Требования
 
-- **Flutter SDK**: 3.24.4
-- **Dart SDK**: 3.5.4
+- **Flutter SDK**: 3.29.2
+- **Dart SDK**: 3.7.2
 
 ## Запуск проекта
 
 
-1. Убедитесь, что у вас установлен Flutter SDK версии 3.24.4 и Dart SDK версии 3.5.4.
+1. Убедитесь, что у вас установлен Flutter SDK версии 3.29.2 и Dart SDK версии 3.7.2.
 2. Установите зависимости, выполнив команду:
    ```bash
    flutter pub get
@@ -48,12 +48,12 @@
 ## Используемые плагины
 
 ### State Management
-- `mobx: ^2.4.0`
-- `flutter_mobx: ^2.2.1+1`
+- `mobx: ^2.5.0`
+- `flutter_mobx: ^2.3.0`
 - `provider: ^6.1.2`
 
 ### Network
-- `dio: ^5.7.0`
+- `dio: ^5.8.0+1`
 - `cached_network_image: ^3.4.1`
 
 ### UI
@@ -61,10 +61,10 @@
 - `shimmer: ^3.0.0`
 
 ### Storage
-- `shared_preferences: ^2.3.2`
+- `shared_preferences: ^2.5.2`
 
 ### DI
-- `get_it: ^8.0.2`
+- `get_it: ^8.0.3`
 - `injectable: ^2.5.0`
 
 ## Структура проекта
