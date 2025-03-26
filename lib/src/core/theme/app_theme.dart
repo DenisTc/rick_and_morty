@@ -6,38 +6,39 @@ final class AppTheme {
   static const Color irisBlue = Color(0xFF11B0C8);
   static const Color nero = Color(0xFF1F1F1F);
   static const Color grey = Color(0xFF7D7D7D);
+  static const String _fontFamilyLato = 'Lato';
 
   static const TextTheme textTheme = TextTheme(
     headlineSmall: TextStyle(
-      fontFamily: 'Aeonik',
+      fontFamily: _fontFamilyLato,
       fontSize: 16,
       fontWeight: FontWeight.w700,
       height: 1.4,
       color: nero,
     ),
     bodyLarge: TextStyle(
-      fontFamily: 'Aeonik',
+      fontFamily: _fontFamilyLato,
       fontSize: 14,
       fontWeight: FontWeight.w700,
       height: 1.4,
       color: nero,
     ),
     bodyMedium: TextStyle(
-      fontFamily: 'Aeonik',
+      fontFamily: _fontFamilyLato,
       fontSize: 14,
       fontWeight: FontWeight.w500,
       height: 1.4,
       color: grey,
     ),
     labelLarge: TextStyle(
-      fontFamily: 'Lato',
+      fontFamily: _fontFamilyLato,
       fontSize: 12,
       fontWeight: FontWeight.w700,
       height: 1.4,
       color: nero,
     ),
     labelMedium: TextStyle(
-      fontFamily: 'Aeonik',
+      fontFamily: _fontFamilyLato,
       fontSize: 12,
       fontWeight: FontWeight.w500,
       height: 1.4,
@@ -59,7 +60,7 @@ final class AppTheme {
       iconTheme: IconThemeData(color: nero),
       titleTextStyle: TextStyle(
         color: nero,
-        fontFamily: 'Aeonik',
+        fontFamily: _fontFamilyLato,
         fontWeight: FontWeight.w700,
         fontSize: 16,
       ),
@@ -68,7 +69,7 @@ final class AppTheme {
       style: ElevatedButton.styleFrom(
         backgroundColor: irisBlue,
         textStyle: const TextStyle(
-          fontFamily: 'Aeonik',
+          fontFamily: _fontFamilyLato,
           fontWeight: FontWeight.w700,
         ),
       ),
