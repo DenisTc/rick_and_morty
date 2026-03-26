@@ -1,7 +1,7 @@
 name: rick_and_morty
 description: "A new Flutter project."
 publish_to: 'none'
-version: 0.2.0
+version: 0.2.1
 
 environment:
   sdk: ^3.5.4
@@ -13,12 +13,12 @@ dependencies:
     sdk: flutter
   
   # State Management
-  mobx: ^2.5.0
+  mobx: ^2.6.0
   flutter_mobx: ^2.3.0
-  provider: ^6.1.2
+  provider: ^6.1.5
 
   # Network
-  dio: ^5.8.0+1
+  dio: ^5.9.2
   cached_network_image: ^3.4.1 
 
   # UI
@@ -26,23 +26,29 @@ dependencies:
   shimmer: ^3.0.0  
 
   # Storage and 
-  shared_preferences: ^2.5.2 
+  shared_preferences: ^2.5.5 
 
   # DI
-  get_it: ^8.0.3             
-  injectable: ^2.5.0 
+  get_it: ^9.2.1             
+  injectable: ^2.7.1 
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.14.3
 
   # Codegen
-  build_runner: ^2.4.15
-  flutter_gen_runner: ^5.10.0
-  mobx_codegen: ^2.7.0
-  injectable_generator: ^2.6.2
+  build_runner: ^2.13.1
+  flutter_gen_runner: ^5.13.0
+  mobx_codegen: ^2.7.6
+  injectable_generator: ^2.12.1
+
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png"
 
 flutter_gen:
   output: lib/src/core/icons/gen/

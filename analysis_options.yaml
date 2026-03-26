@@ -2,5 +2,7 @@ include: package:flutter_lints/flutter.yaml
 analyzer:
   errors:
     depend_on_referenced_packages: ignore
+    included_file_warning: ignore
   exclude:
         - lib/**.g.dart
+        - lib/src/core/localization/generated/**
