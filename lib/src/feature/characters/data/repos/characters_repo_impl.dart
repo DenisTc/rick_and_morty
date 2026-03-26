@@ -6,23 +6,23 @@ import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: CharactersRepository)
 class CharactersRepoImpl implements CharactersRepository {
-  final CharactersRemotelDataSource _remoteDataSource;
+  final CharactersRemoteDataSource _remoteDataSource;
   final CharactersLocalDataSource _localDataSource;
 
   CharactersRepoImpl({
-    required CharactersRemotelDataSource remoteDataSource,
+    required CharactersRemoteDataSource remoteDataSource,
     required CharactersLocalDataSource localDataSource,
   })  : _remoteDataSource = remoteDataSource,
         _localDataSource = localDataSource;
 
   @override
   Future<CharacterResponse> getCharacters(int page) async {
-    return await _remoteDataSource.getCharacters(page);
+    return _remoteDataSource.getCharacters(page);
   }
 
   @override
   Future<List<String>> getFavoriteCharacterIds() async {
-    return await _localDataSource.getFavoriteCharacterIds();
+    return _localDataSource.getFavoriteCharacterIds();
   }
 
   @override

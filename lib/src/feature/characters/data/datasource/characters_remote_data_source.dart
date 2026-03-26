@@ -2,15 +2,15 @@ import 'package:rick_and_morty/src/core/network/network_client.dart';
 import 'package:rick_and_morty/src/feature/characters/data/models/character_response.dart';
 import 'package:injectable/injectable.dart';
 
-abstract interface class CharactersRemotelDataSource {
+abstract interface class CharactersRemoteDataSource {
   Future<CharacterResponse> getCharacters(int page);
 }
 
-@LazySingleton(as: CharactersRemotelDataSource)
-class CharactersRemotelDataSourceImpl implements CharactersRemotelDataSource {
+@LazySingleton(as: CharactersRemoteDataSource)
+class CharactersRemoteDataSourceImpl implements CharactersRemoteDataSource {
   final NetworkClient api;
 
-  CharactersRemotelDataSourceImpl(this.api);
+  CharactersRemoteDataSourceImpl(this.api);
 
   @override
   Future<CharacterResponse> getCharacters(int page) async {

@@ -5,7 +5,6 @@ import 'package:rick_and_morty/src/core/di/init_di.dart';
 import 'package:rick_and_morty/src/core/localization/generated/l10n.dart';
 import 'package:rick_and_morty/src/core/services/local_storage.dart';
 import 'package:rick_and_morty/src/core/theme/app_theme.dart';
-import 'package:rick_and_morty/src/feature/character_details/store/character_store.dart';
 import 'package:rick_and_morty/src/feature/characters/presentation/characters_screen.dart';
 import 'package:rick_and_morty/src/feature/characters/store/characters_store.dart';
 
@@ -14,7 +13,7 @@ Future<void> main() async {
 
   configureDependencies();
 
-  await LocalStorage().init();
+  await getIt<LocalStorage>().init();
 
   runApp(const App());
 }
@@ -27,7 +26,6 @@ class App extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider<CharactersStore>(create: (_) => getIt<CharactersStore>()),
-        Provider<CharacterStore>(create: (_) => getIt<CharacterStore>()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

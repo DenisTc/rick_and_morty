@@ -1,18 +1,17 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rick_and_morty/src/feature/characters/data/models/character.dart';
 import 'package:rick_and_morty/src/feature/characters/data/models/info.dart';
 
-class CharacterResponse {
-  final Info info;
-  final List<Character> results;
+part 'character_response.freezed.dart';
+part 'character_response.g.dart';
 
-  CharacterResponse({required this.info, required this.results});
+@freezed
+abstract class CharacterResponse with _$CharacterResponse {
+  const factory CharacterResponse({
+    required Info info,
+    required List<Character> results,
+  }) = _CharacterResponse;
 
-  factory CharacterResponse.fromJson(Map<String, dynamic> json) {
-    return CharacterResponse(
-      info: Info.fromJson(json['info']),
-      results: (json['results'] as List)
-          .map((character) => Character.fromJson(character))
-          .toList(),
-    );
-  }
+  factory CharacterResponse.fromJson(Map<String, dynamic> json) =>
+      _$CharacterResponseFromJson(json);
 }

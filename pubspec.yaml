@@ -4,7 +4,7 @@ publish_to: 'none'
 version: 0.2.1
 
 environment:
-  sdk: ^3.5.4
+  sdk: ^3.8.0
 
 dependencies:
   flutter:
@@ -29,8 +29,12 @@ dependencies:
   shared_preferences: ^2.5.5 
 
   # DI
-  get_it: ^9.2.1             
-  injectable: ^2.7.1 
+  get_it: ^9.2.1
+  injectable: ^2.7.1
+
+  # Serialization
+  freezed_annotation: ^3.0.0
+  json_annotation: ^4.9.0
 
 
 dev_dependencies:
@@ -44,6 +48,8 @@ dev_dependencies:
   flutter_gen_runner: ^5.13.0
   mobx_codegen: ^2.7.6
   injectable_generator: ^2.12.1
+  freezed: ^3.0.0
+  json_serializable: ^6.9.0
 
 flutter_launcher_icons:
   android: true

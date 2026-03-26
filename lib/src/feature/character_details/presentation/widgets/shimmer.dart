@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rick_and_morty/src/core/constants/app_dimensions.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CharacterDetailShimmer extends StatelessWidget {
@@ -9,7 +10,7 @@ class CharacterDetailShimmer extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 20.0),
+        const SizedBox(height: AppDimensions.defaultPadding),
         ...List.generate(3, (index) => const _ShimmerRow()),
       ],
     );
@@ -19,53 +20,48 @@ class CharacterDetailShimmer extends StatelessWidget {
 class _ShimmerRow extends StatelessWidget {
   const _ShimmerRow();
 
+  static const _baseColor = Color(0xFFE0E0E0);
+  static const _highlightColor = Color(0xFFF5F5F5);
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(AppDimensions.defaultPadding),
       child: Row(
         children: [
           Shimmer.fromColors(
-            baseColor: Colors.grey[300]!,
-            highlightColor: Colors.grey[100]!,
+            baseColor: _baseColor,
+            highlightColor: _highlightColor,
             child: Container(
-              width: 40.0,
-              height: 40.0,
+              width: AppDimensions.shimmerCircleSize,
+              height: AppDimensions.shimmerCircleSize,
               decoration: const BoxDecoration(
                 color: Colors.white,
                 shape: BoxShape.circle,
               ),
             ),
           ),
-          const SizedBox(width: 20),
+          const SizedBox(width: AppDimensions.defaultPadding),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: 14,
-                width: 60,
+                height: AppDimensions.shimmerTextHeight,
+                width: AppDimensions.shimmerTitleWidth,
                 child: Shimmer.fromColors(
-                  baseColor: Colors.grey[300]!,
-                  highlightColor: Colors.grey[100]!,
-                  child: Container(
-                    width: 150.0,
-                    height: 20.0,
-                    color: Colors.white,
-                  ),
+                  baseColor: _baseColor,
+                  highlightColor: _highlightColor,
+                  child: Container(color: Colors.white),
                 ),
               ),
               const SizedBox(height: 4),
               SizedBox(
-                height: 14,
-                width: 160,
+                height: AppDimensions.shimmerTextHeight,
+                width: AppDimensions.shimmerValueWidth,
                 child: Shimmer.fromColors(
-                  baseColor: Colors.grey[300]!,
-                  highlightColor: Colors.grey[100]!,
-                  child: Container(
-                    width: 150.0,
-                    height: 20.0,
-                    color: Colors.white,
-                  ),
+                  baseColor: _baseColor,
+                  highlightColor: _highlightColor,
+                  child: Container(color: Colors.white),
                 ),
               ),
             ],

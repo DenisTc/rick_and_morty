@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
+import 'package:rick_and_morty/src/core/constants/app_dimensions.dart';
 import 'package:rick_and_morty/src/feature/character_details/presentation/character_details_screen.dart';
 import 'package:rick_and_morty/src/feature/characters/data/models/character.dart';
 import 'package:rick_and_morty/src/feature/characters/presentation/widgets/favorite_button.dart';
@@ -7,7 +9,7 @@ import 'package:rick_and_morty/src/feature/characters/presentation/widgets/image
 import 'package:rick_and_morty/src/feature/characters/presentation/widgets/title_card.dart';
 import 'package:rick_and_morty/src/feature/characters/store/characters_store.dart';
 
-class CharacterCard extends StatefulWidget {
+class CharacterCard extends StatelessWidget {
   final Character character;
 
   const CharacterCard({
@@ -16,29 +18,18 @@ class CharacterCard extends StatefulWidget {
   });
 
   @override
-  State<CharacterCard> createState() => _CharacterCardState();
-}
-
-class _CharacterCardState extends State<CharacterCard> {
-  late final CharactersStore store;
-
-  @override
-  void initState() {
-    super.initState();
-    store = context.read<CharactersStore>();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final store = context.read<CharactersStore>();
+
     return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(AppDimensions.borderRadius),
       child: InkWell(
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => CharacterDetailsScreen(
-                id: widget.character.id,
-                image: widget.character.image,
+                id: character.id,
+                image: character.image,
               ),
             ),
           );
@@ -50,15 +41,21 @@ class _CharacterCardState extends State<CharacterCard> {
             children: [
               Stack(
                 children: [
-                  ImageCard(widget.character.image),
-                  FavoriteButton(
-                    isFavorite: widget.character.isFavorite,
-                    onTap: () => store.toggleLike(widget.character.id),
+                  ImageCard(character.image),
+                  Observer(
+                    builder: (_) {
+                      final isFavorite =
+                          store.favoriteCharacterIds.contains(character.id);
+                      return FavoriteButton(
+                        isFavorite: isFavorite,
+                        onTap: () => store.toggleLike(character.id),
+                      );
+                    },
                   ),
                 ],
               ),
               const SizedBox(height: 5),
-              TitleCard(widget.character.name),
+              TitleCard(character.name),
             ],
           ),
         ),

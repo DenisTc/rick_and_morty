@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rick_and_morty/src/core/constants/app_dimensions.dart';
 import 'package:rick_and_morty/src/core/theme/app_theme.dart';
 
 class CharacterDescription extends StatelessWidget {
@@ -16,16 +17,19 @@ class CharacterDescription extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppDimensions.defaultPadding,
+        vertical: 10,
+      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CircleAvatar(
-            radius: 20.0,
+            radius: AppDimensions.circleAvatarRadius,
             backgroundColor: AppTheme.irisBlue,
             child: icon,
           ),
-          const SizedBox(width: 20),
+          const SizedBox(width: AppDimensions.defaultPadding),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

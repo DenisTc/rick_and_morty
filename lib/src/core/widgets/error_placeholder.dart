@@ -22,7 +22,7 @@ class ErrorPlaceHolder extends StatelessWidget {
             Text(errorMessage),
             const SizedBox(height: 24),
             ElevatedButton(
-              onPressed: () => onTap(),
+              onPressed: onTap,
               child: Text(
                 S.of(context).reload,
                 style: Theme.of(context).textTheme.bodyLarge,

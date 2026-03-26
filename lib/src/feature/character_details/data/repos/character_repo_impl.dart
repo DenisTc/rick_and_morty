@@ -5,12 +5,12 @@ import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: CharacterRepository)
 class CharacterRepoImpl implements CharacterRepository {
-  final CharacterRemotelDataSource _remoteDataSource;
+  final CharacterRemoteDataSource _remoteDataSource;
 
   CharacterRepoImpl(this._remoteDataSource);
 
   @override
   Future<Character> getCharacter(int id) async {
-    return await _remoteDataSource.getCharacter(id);
+    return _remoteDataSource.getCharacter(id);
   }
 }

@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:provider/provider.dart';
+import 'package:rick_and_morty/src/core/constants/app_dimensions.dart';
+import 'package:rick_and_morty/src/core/di/init_di.dart';
 import 'package:rick_and_morty/src/core/enums/character_characteristic_enum.dart';
 import 'package:rick_and_morty/src/core/localization/generated/l10n.dart';
-import 'package:rick_and_morty/src/core/utils/get_icon_for_characteristic.dart';
 import 'package:rick_and_morty/src/core/widgets/error_placeholder.dart';
 import 'package:rick_and_morty/src/feature/character_details/presentation/widgets/custom_back_button.dart';
 import 'package:rick_and_morty/src/feature/character_details/presentation/widgets/character_description.dart';
@@ -32,7 +32,7 @@ class _CharacterDetailsScreenState extends State<CharacterDetailsScreen> {
   @override
   void initState() {
     super.initState();
-    store = context.read<CharacterStore>();
+    store = getIt<CharacterStore>();
     store.fetchCharacter(widget.id);
   }
 
@@ -45,7 +45,7 @@ class _CharacterDetailsScreenState extends State<CharacterDetailsScreen> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CharacterImage(widget.image),
+                _CharacterImage(widget.image),
                 const CharacterDetailShimmer(),
               ],
             );
@@ -64,40 +64,19 @@ class _CharacterDetailsScreenState extends State<CharacterDetailsScreen> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CharacterImage(widget.image),
-                const SizedBox(height: 20),
-                CharacterDescription(
-                  title: S.of(context).name,
-                  value: character.name,
-                  icon: getIconForCharacteristic(
-                    typeEnum: CharCharacteristicEnum.gender,
-                    value: character.name,
-                  ).image(color: Colors.white),
-                ),
-                CharacterDescription(
-                  title: S.of(context).status,
-                  value: character.status,
-                  icon: getIconForCharacteristic(
-                    typeEnum: CharCharacteristicEnum.status,
-                    value: character.status,
-                  ).image(color: Colors.white),
-                ),
-                CharacterDescription(
-                  title: S.of(context).species,
-                  value: character.species,
-                  icon: getIconForCharacteristic(
-                    typeEnum: CharCharacteristicEnum.species,
-                    value: character.species,
-                  ).image(color: Colors.white),
-                ),
-                CharacterDescription(
-                  title: S.of(context).gender,
-                  value: character.gender,
-                  icon: getIconForCharacteristic(
-                    typeEnum: CharCharacteristicEnum.gender,
-                    value: character.gender,
-                  ).image(color: Colors.white),
-                ),
+                _CharacterImage(widget.image),
+                const SizedBox(height: AppDimensions.defaultPadding),
+                for (final entry in {
+                  CharCharacteristicEnum.name: character.name,
+                  CharCharacteristicEnum.status: character.status,
+                  CharCharacteristicEnum.species: character.species,
+                  CharCharacteristicEnum.gender: character.gender,
+                }.entries)
+                  CharacterDescription(
+                    title: entry.key.title(context),
+                    value: entry.value,
+                    icon: entry.key.icon(entry.value).image(color: Colors.white),
+                  ),
               ],
             );
           }
@@ -109,26 +88,32 @@ class _CharacterDetailsScreenState extends State<CharacterDetailsScreen> {
   }
 }
 
-class CharacterImage extends StatelessWidget {
+class _CharacterImage extends StatelessWidget {
   final String image;
-  const CharacterImage(this.image, {super.key});
+  const _CharacterImage(this.image);
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         AspectRatio(
-          aspectRatio: 1.46,
+          aspectRatio: AppDimensions.imageDetailAspectRatio,
           child: Hero(
             tag: image,
             child: ClipRRect(
               borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
+                topLeft: Radius.circular(AppDimensions.borderRadius),
+                topRight: Radius.circular(AppDimensions.borderRadius),
               ),
               child: CachedNetworkImage(
                 imageUrl: image,
                 fit: BoxFit.cover,
+                errorWidget: (context, url, error) => const ColoredBox(
+                  color: Color(0xFFE0E0E0),
+                  child: Center(
+                    child: Icon(Icons.broken_image_outlined, color: Colors.grey, size: 48),
+                  ),
+                ),
               ),
             ),
           ),

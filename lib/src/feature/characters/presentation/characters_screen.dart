@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:rick_and_morty/src/core/constants/app_dimensions.dart';
 import 'package:rick_and_morty/src/core/localization/generated/l10n.dart';
 import 'package:rick_and_morty/src/core/widgets/error_placeholder.dart';
 import 'package:rick_and_morty/src/feature/characters/presentation/widgets/character_card.dart';
 import 'package:rick_and_morty/src/feature/characters/store/characters_store.dart';
 
 class CharactersScreen extends StatefulWidget {
-  const CharactersScreen({
-    super.key,
-  });
+  const CharactersScreen({super.key});
 
   @override
   State<CharactersScreen> createState() => _CharactersScreenState();
@@ -35,9 +34,15 @@ class _CharactersScreenState extends State<CharactersScreen> {
     super.dispose();
   }
 
-  void _onLoading() async {
-    store.fetchCharacters(isNextPage: true);
-    await Future.delayed(const Duration(milliseconds: 1000));
+  Future<void> _onRefresh() async {
+    store.currentPage = 1;
+    store.hasNextPage = true;
+    await store.fetchCharacters();
+    _refreshController.refreshCompleted();
+  }
+
+  Future<void> _onLoading() async {
+    await store.fetchCharacters(isNextPage: true);
 
     if (store.hasNextPage) {
       _refreshController.loadComplete();
@@ -53,14 +58,11 @@ class _CharactersScreenState extends State<CharactersScreen> {
         bottom: false,
         child: Observer(
           builder: (_) {
-            if (store.isLoading) {
+            if (store.isLoading && store.characters.isEmpty) {
               return const Center(child: CircularProgressIndicator());
             }
-            if (!store.hasNextPage) {
-              _refreshController.loadNoData();
-            }
 
-            if (store.errorMessage != null) {
+            if (store.errorMessage != null && store.characters.isEmpty) {
               return ErrorPlaceHolder(
                 errorMessage: store.errorMessage ?? S.of(context).errorMessage,
                 onTap: () => store.fetchCharacters(),
@@ -71,18 +73,23 @@ class _CharactersScreenState extends State<CharactersScreen> {
               enablePullDown: true,
               enablePullUp: true,
               controller: _refreshController,
+              onRefresh: _onRefresh,
               onLoading: _onLoading,
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  childAspectRatio: .74,
-                  mainAxisSpacing: 10.0,
-                  crossAxisSpacing: 20.0,
+                  childAspectRatio: AppDimensions.gridAspectRatio,
+                  mainAxisSpacing: AppDimensions.gridMainSpacing,
+                  crossAxisSpacing: AppDimensions.gridCrossSpacing,
                 ),
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(AppDimensions.defaultPadding),
                 itemCount: store.characters.length,
                 itemBuilder: (context, index) {
-                  return CharacterCard(character: store.characters[index]);
+                  final character = store.characters[index];
+                  return CharacterCard(
+                    key: ValueKey(character.id),
+                    character: character,
+                  );
                 },
               ),
             );

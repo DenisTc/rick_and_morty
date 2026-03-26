@@ -1,13 +1,14 @@
-class Info {
-  final int pages;
-  final String? next;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  Info({required this.pages, this.next});
+part 'info.freezed.dart';
+part 'info.g.dart';
 
-  factory Info.fromJson(Map<String, dynamic> json) {
-    return Info(
-      pages: json['pages'],
-      next: json['next'],
-    );
-  }
+@freezed
+abstract class Info with _$Info {
+  const factory Info({
+    required int pages,
+    String? next,
+  }) = _Info;
+
+  factory Info.fromJson(Map<String, dynamic> json) => _$InfoFromJson(json);
 }

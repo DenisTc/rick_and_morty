@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:mobx/mobx.dart';
 
+import 'package:rick_and_morty/src/core/network/app_exception.dart';
 import 'package:rick_and_morty/src/feature/characters/data/models/character.dart';
 import 'package:rick_and_morty/src/feature/characters/domain/usecases/get_characters.dart';
 import 'package:rick_and_morty/src/feature/characters/domain/usecases/get_favorite_character_ids.dart';
@@ -12,15 +13,15 @@ part 'characters_store.g.dart';
 class CharactersStore = CharactersBase with _$CharactersStore;
 
 abstract class CharactersBase with Store {
-  final GetCharactersUseCase _getCharactes;
+  final GetCharactersUseCase _getCharacters;
   final GetFavoriteCharacterIdsUseCase _getFavoriteCharacterIds;
   final SaveFavoriteCharacterIdsUseCase _saveFavoriteCharacterIds;
 
   CharactersBase({
-    required GetCharactersUseCase getCharactes,
+    required GetCharactersUseCase getCharacters,
     required GetFavoriteCharacterIdsUseCase getFavoriteCharacterIds,
     required SaveFavoriteCharacterIdsUseCase saveFavoriteCharacterIds,
-  })  : _getCharactes = getCharactes,
+  })  : _getCharacters = getCharacters,
         _getFavoriteCharacterIds = getFavoriteCharacterIds,
         _saveFavoriteCharacterIds = saveFavoriteCharacterIds {
     _loadFavoriteCharacters();
@@ -53,11 +54,11 @@ abstract class CharactersBase with Store {
     if (!isNextPage) {
       isLoading = true;
       errorMessage = null;
+      characters.clear();
     }
 
     try {
-      final response = await _getCharactes(page);
-      final results = response.results;
+      final response = await _getCharacters(page);
 
       hasNextPage = response.info.next != null;
 
@@ -65,15 +66,11 @@ abstract class CharactersBase with Store {
         currentPage = page;
       }
 
-      final newCharacters = results.map((characterData) {
-        return characterData.copyWith(
-          isFavorite: favoriteCharacterIds.contains(characterData.id),
-        );
-      }).toList();
-
-      characters.addAll(newCharacters);
-    } catch (e) {
-      errorMessage = 'An error occurred: $e';
+      characters.addAll(response.results);
+    } on AppException catch (e) {
+      errorMessage = e.message;
+    } catch (_) {
+      errorMessage = 'Something went wrong';
     } finally {
       isLoading = false;
     }
@@ -88,18 +85,14 @@ abstract class CharactersBase with Store {
     }
 
     await _saveFavoriteCharacters();
-
-    characters = ObservableList.of(characters.map((character) {
-      if (character.id == characterId) {
-        character.isFavorite = favoriteCharacterIds.contains(characterId);
-      }
-      return character;
-    }));
   }
 
   Future<void> _loadFavoriteCharacters() async {
     final favoriteIds = await _getFavoriteCharacterIds();
-    favoriteCharacterIds.addAll(favoriteIds.map(int.parse));
+    final parsed = favoriteIds
+        .map(int.tryParse)
+        .whereType<int>();
+    favoriteCharacterIds.addAll(parsed);
   }
 
   Future<void> _saveFavoriteCharacters() async {
